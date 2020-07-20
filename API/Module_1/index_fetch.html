@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Curso API´s y Servers: Modulo 1, fetch()</title>
+    </head>
+    <body>
+        <img src="" id="rainbow" width="500"/>
+        <script>
+
+            
+            /*
+            console.log('Gonna fetch a rainbow');       // Que vamos a hacer
+            fetch('rainbow.jpg').then(response => {     // Coge el archivo local
+                console.log(response);                  // Si lo coge, lo escribimos en la consola
+                return response.blob();                 // Lo retornamos a la siguiente funcion (then), con el formate blob()
+            }).then(blob => {                           
+                console.log(blob);                      // Imprimimos el blob
+                document.getElementById('rainbow').src = URL.createObjectURL(blob);   // Cambiamos el src del id="rainbow", 
+            })                                                                        // convertimos el blob a url y ponemos en pantalla la imagen
+            .catch(error => {
+                console.log("ERROR!!!");
+                console.error(error);
+            });
+            */
+
+            // VAMOS A MEJORAR ESTO
+            
+            catchRainbow().then(blob => { console.log("Image fetched") }).catch(error => {
+                console.error(error);
+            });
+
+            async function catchRainbow(){
+                console.log("Gonna fetch a rainbow");
+                const response = await fetch("rainbow.jpg");
+                const blob = await response.blob();
+                document.getElementById('rainbow').src = URL.createObjectURL(blob);
+            }
+
+        </script>
+    </body>
+</html>
