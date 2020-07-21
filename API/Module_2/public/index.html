@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Curso API´s y Servers: Modulo 2, Creating Server</title>
+    </head>
+    <body>
+        <h1>GEOLOCATION</h1>
+        <p>Latitud: <span id="latitud"></span>&deg;<br />
+           Longitud: <span id="longitud"></span>&deg;
+        </p>
+        <button id="geolocate">submit</button>
+        <script>
+            if('geolocation' in navigator){
+                console.log("Geo. is available");
+                navigator.geolocation.getCurrentPosition(async position => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    document.getElementById("latitud").textContent = lat;
+                    document.getElementById("longitud").textContent = lng;
+
+                    document.getElementById("geolocate").addEventListener('click', async event => {
+                        const data = { lat, lng };
+                        const options = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        };
+                        const response = await fetch('/API', options);
+                        const json = await response.json();
+                        console.log(json);
+                        });
+                });
+            } else {
+                console.log("Geo. is not available");
+            }
+        </script>
+    </body>
+</html>
