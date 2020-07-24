@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Curso API´s y Servers: Modulo 2, Query</title>
+</head>
+
+<body>
+    <div><a href="/">enter</a> | <a href="/logs">list</a></div>
+    <h1>Query</h1>
+    <script>
+        getData();
+        async function getData() {
+            const response = await fetch("/api");
+            const data = await response.json();
+
+            for (item of data) {
+                const root = document.createElement("p");
+                const geo = document.createElement("div");
+                const date = document.createElement("div");
+                const image = document.createElement("img");
+
+                geo.textContent = `${item.lat}, ${item.lng}`;
+                const datetoString = new Date(item.timestamp).toLocaleString();
+                date.textContent = datetoString;
+                image.src = item.image64;
+
+                root.append(geo, date, image);
+                document.body.append(root);
+
+            }
+            console.log(data);
+        }
+
+    </script>
+</body>
+
+</html>
